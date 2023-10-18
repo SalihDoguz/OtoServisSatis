@@ -38,6 +38,7 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                 var account = _service.Get(k => k.Email == email && k.Sifre == password && k.AktifMi == true);
                 if (account == null)
                 {
+                    /////araba eklendi kodu
                     TempData["Mesaj"] = "Giriş başarısız!";
                 }
                 else
