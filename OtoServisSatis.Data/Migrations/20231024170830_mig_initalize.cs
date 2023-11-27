@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OtoServisSatis.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class mig_0 : Migration
+    public partial class mig_initalize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,7 +30,7 @@ namespace OtoServisSatis.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Adi = table.Column<string>(type: "varchar(50)", nullable: false)
+                    Adi = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,19 +62,39 @@ namespace OtoServisSatis.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sliders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Baslik = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Aciklama = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Resim = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Link = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sliders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Araclar",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MarkaId = table.Column<int>(type: "int", nullable: false),
-                    Renk = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Renk = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Fiyat = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KasaTipi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    KasaTipi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ModelYili = table.Column<int>(type: "int", nullable: false),
-                    SatistaMi = table.Column<bool>(type: "bit", nullable: false),
-                    Notlar = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SatistaMi = table.Column<bool>(type: "bit", nullable: true),
+                    Anasayfa = table.Column<bool>(type: "bit", nullable: true),
+                    Notlar = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Resim1 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Resim2 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Resim3 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,14 +113,14 @@ namespace OtoServisSatis.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Adi = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Soyadi = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Telefon = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KullaniciAdi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Adi = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Soyadi = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Telefon = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    KullaniciAdi = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Sifre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AktifMi = table.Column<bool>(type: "bit", nullable: false),
-                    EklenmeTarihi = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EklenmeTarihi = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RolId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -121,9 +141,9 @@ namespace OtoServisSatis.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AracId = table.Column<int>(type: "int", nullable: false),
-                    Adi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Adi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Soyadi = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TcNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TcNo = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Adres = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Telefon = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -176,7 +196,7 @@ namespace OtoServisSatis.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Kullanicilar",
                 columns: new[] { "Id", "Adi", "AktifMi", "EklenmeTarihi", "Email", "KullaniciAdi", "RolId", "Sifre", "Soyadi", "Telefon" },
-                values: new object[] { 1, "Admin", true, new DateTime(2023, 10, 11, 19, 9, 8, 714, DateTimeKind.Local).AddTicks(8620), "admin@otoservissatis.tc", "admin", 1, "123456", "admin", "0850" });
+                values: new object[] { 1, "Admin", true, new DateTime(2023, 10, 24, 20, 8, 30, 416, DateTimeKind.Local).AddTicks(3891), "admin@otoservissatis.tc", "admin", 1, "123456", "admin", "0850" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Araclar_MarkaId",
@@ -215,6 +235,9 @@ namespace OtoServisSatis.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Servisler");
+
+            migrationBuilder.DropTable(
+                name: "Sliders");
 
             migrationBuilder.DropTable(
                 name: "Roller");

@@ -21,7 +21,7 @@ namespace OtoServisSatis.Entities
         [StringLength(11)]
         public string? TcNo { get; set; }
         public string Email { get; set; }
-        [StringLength(200)]
+        [StringLength(200), Required(ErrorMessage = "{0} Boş Bırakılamaz!")]
         public string? Adres { get; set; }
         public string? Telefon { get; set; }
         public string? Notlar { get; set; }

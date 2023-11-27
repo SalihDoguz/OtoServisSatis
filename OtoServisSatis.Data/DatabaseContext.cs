@@ -26,13 +26,16 @@ namespace OtoServisSatis.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-L6R702N\\SQLEXPRESS;Database=OtoServisSatis;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-L6R702N\\SQLEXPRESS;Database=OtoServisSatisDb;Trusted_Connection=True;TrustServerCertificate=True;");
+
+
+
             base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Fluent API tanımlaması
+          //  Fluent API tanımlaması
             modelBuilder.Entity<Marka>().Property(x => x.Adi).IsRequired().HasColumnType("varchar(50)");
             modelBuilder.Entity<Rol>().Property(x => x.Adi).IsRequired().HasColumnType("varchar(50)");
             modelBuilder.Entity<Rol>().HasData(new Rol

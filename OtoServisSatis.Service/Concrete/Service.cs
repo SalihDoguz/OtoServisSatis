@@ -12,10 +12,10 @@ namespace OtoServisSatis.Service.Concrete
         //{
 
         //}
-        public Service()
-        {
+        //public Service()
+        //{
 
-        }
+        //}
 
         public Service(DatabaseContext context) : base(context)
         {

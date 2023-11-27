@@ -8,8 +8,8 @@ using OtoServisSatis.Service.Abstract;
 
 namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
 {
+   // [Area("Admin"), Authorize(Policy = "AdminPolicy")]
     [Area("Admin"), Authorize]
-
     public class CustomersController : Controller
     {
         private readonly IService<Musteri> _service;
@@ -64,7 +64,6 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
             }
             return View(musteri);
         }
-
         // GET: CustomersController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
