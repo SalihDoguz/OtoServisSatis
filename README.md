@@ -1,3 +1,3 @@
 # OtoServisSatis
 
-Projenin amacı yönetilebilir araç satış için admin panelidir.Gerekli Controller kodları Areas klasöründedir.
+Projenin amacı yönetilebilir araç satış için gerekli admin panelidir.Controller'lar Areas klasöründedir.
