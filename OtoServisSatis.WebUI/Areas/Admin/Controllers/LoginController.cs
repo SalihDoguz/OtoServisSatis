@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OtoServisSatis.Entities;
 using OtoServisSatis.Service.Abstract;
@@ -38,6 +40,7 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
                 var account = _service.Get(k => k.Email == email && k.Sifre == password && k.AktifMi == true);
                 if (account == null)
                 {
+                    
                     TempData["Mesaj"] = "Giriş başarısız!";
                 }
                 else

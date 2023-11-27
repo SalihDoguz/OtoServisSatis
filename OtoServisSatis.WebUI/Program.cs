@@ -1,10 +1,8 @@
-using Microsoft.Build.Framework;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using OtoServisSatis.Data;
-using OtoServisSatis.Data.Abstract;
 using OtoServisSatis.Service.Abstract;
 using OtoServisSatis.Service.Concrete;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DatabaseContext>();
-//builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer());
+
 
 builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
+builder.Services.AddTransient<ICarService, CarService>();
+builder.Services.AddTransient<IUserService, UserService>();
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
 {
@@ -29,7 +30,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization(x => // Yetkilendirme iþlemi yapýyoruz.
 {
     x.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Role", "Admin"));
-    x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
+    x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "Admin","User"));
+    x.AddPolicy("CustomerPolicy", policy => policy.RequireClaim("Role", "Admin", "User", "Customer"));
 });
 
 var app = builder.Build();

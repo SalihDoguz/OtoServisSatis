@@ -30,6 +30,9 @@ namespace OtoServisSatis.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Anasayfa")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Fiyat")
                         .HasColumnType("decimal(18,2)");
 
@@ -123,6 +126,9 @@ namespace OtoServisSatis.Data.Migrations
                     b.Property<string>("Telefon")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UserGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RolId");
@@ -135,13 +141,14 @@ namespace OtoServisSatis.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2023, 10, 18, 19, 51, 47, 293, DateTimeKind.Local).AddTicks(707),
+                            EklenmeTarihi = new DateTime(2023, 10, 28, 15, 23, 6, 391, DateTimeKind.Local).AddTicks(3642),
                             Email = "admin@otoservissatis.tc",
                             KullaniciAdi = "admin",
                             RolId = 1,
                             Sifre = "123456",
                             Soyadi = "admin",
-                            Telefon = "0850"
+                            Telefon = "0850",
+                            UserGuid = new Guid("a5608311-3b2e-4b87-b27f-774b04abfc19")
                         });
                 });
 
@@ -176,6 +183,7 @@ namespace OtoServisSatis.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Adres")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
